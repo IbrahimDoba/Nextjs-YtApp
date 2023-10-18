@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* base styles */
+
+/* Navbar styles */
+nav {
+    @apply flex h-[80px] w-full  items-center justify-center max-md:justify-start bg-gradient-to-r from-[#93dc99] to-[#46c38f] px-4 max-md:h-[60px]
+}
+nav > div {
+    @apply flex w-[70%] items-center justify-between max-md:w-[90%]
+}
+
+
+/* Footer Styles */
+.footer {
+   @apply  w-full h-[autp] mt-10  flex flex-col justify-center items-center  border bg-slate-100 border-gray-200 pt-4    
+}
+
+.footer div {
+    @apply flex w-[60%] justify-between p-5 items-center max-lg:flex-col  max-lg:space-y-6
+}
+
+.footer hr {
+    @apply m-6  w-[80%] border border-ACT
+}
+.footer small{
+    @apply w-full py-6 text-center text-lg
+}
