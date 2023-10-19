@@ -46,7 +46,7 @@ const introPictureVariants = {
 // 'secondary-button': '#ecf9f3',
 // 'accent': '#46c38f',
 
-const Mp4MainCard = () => {
+const Mp3MainCard = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center bg-[#ffffff]  pt-[100px] ">
       <section className="m-7  flex min-h-[500px] max-w-[80%] items-center justify-center rounded-lg  max-med:flex-col ">
@@ -54,7 +54,7 @@ const Mp4MainCard = () => {
           <Image
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full"
             src={main1}
-            alt="MP4 Downloader"
+            alt="MP3 Downloader"
           />
         </article>
         <article className=" flex w-1/2 flex-col  p-4 max-med:h-auto   max-med:w-auto ">
@@ -89,7 +89,7 @@ const Mp4MainCard = () => {
               <Image
                 className="  h-[280px] w-full  rounded-t-lg object-contain"
                 src={img1}
-                alt="YouTube Downloader Online - MP4"
+                alt="YouTube Downloader Online - MP3"
               />
             </article>
             <section className="w-[80%]  flex-1  ">
@@ -107,7 +107,7 @@ const Mp4MainCard = () => {
               <Image
                 className="  h-[280px] w-full   rounded-t-lg object-contain"
                 src={img2}
-                alt="Video Downloader MP4"
+                alt="free Audio Downloader MP3"
               />
             </article>
             <section className="w-[80%]  flex-1  ">
@@ -125,7 +125,7 @@ const Mp4MainCard = () => {
               <Image
                 className="  h-[280px] w-full  rounded-t-lg object-contain"
                 src={img3}
-                alt="Free YouTube to MP4 Downloader"
+                alt="Free YouTube to MP3 Downloader"
               />
             </article>
             <section className="w-[80%]  flex-1  ">
@@ -156,7 +156,7 @@ const Mp4MainCard = () => {
             >
               <Image
                 src={audiimg}
-                alt="Free YouTube to MP4 Downloader"
+                alt="Free YouTube to MP3 Downloader online"
                 className=" h-[300px] w-auto rounded-t-lg max-med:h-[250px]"
               />
             </motion.div>
@@ -186,7 +186,7 @@ const Mp4MainCard = () => {
             >
               <Image
                 src={video}
-                alt="Mp4 Downloader Free"
+                alt="Mp3 Downloader Free"
                 className=" h-[300px] w-auto rounded-t-lg max-med:h-[250px]"
               />
             </motion.div>
@@ -218,7 +218,7 @@ const Mp4MainCard = () => {
             >
               <Image
                 src={fast}
-                alt="YouTube Online Downloader Free Mp4"
+                alt="YouTube Online Downloader Free Mp3"
                 className=" h-[300px] w-auto rounded-t-lg max-med:h-[250px]"
               />
             </motion.div>
@@ -294,4 +294,4 @@ const Mp4MainCard = () => {
   );
 };
 
-export default Mp4MainCard;
+export default Mp3MainCard;

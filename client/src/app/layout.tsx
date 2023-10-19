@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer/page";
+import Head from "next/head";
 
 // components
 
@@ -15,7 +16,10 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Ssaver ",
-  description: "Ssaver Youtube Video/Mp4 and Audio/Mp3 Downloader",
+  description: " Youtube Video/Mp4 and Audio/Mp3 free online Downloader",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -25,6 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      {/* add this */}
+      <head>
+      <link rel="icon" href="/logo.png" />
+      </head>
       <body className={poppins.className}>
         <Navbar />
         {children}
