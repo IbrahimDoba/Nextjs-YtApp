@@ -49,7 +49,7 @@ const introPictureVariants = {
 
 const MainCard = () => {
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-[#ffffff]  pt-[100px] ">
+    <div className="flex w-full flex-col items-center justify-center bg-[#ffffff]  pt-[100px] overflow-x-hidden">
       <section className="m-7  flex min-h-[500px] max-w-[80%] items-center justify-center rounded-lg  max-med:flex-col ">
         <article className="flex h-[500px] w-1/2 items-center md:w-1/2 max-med:h-auto max-med:w-auto">
           <Image
@@ -143,10 +143,10 @@ const MainCard = () => {
           </div>
         </div>
       </section>
-      <section className="w-[80%]">
+      <section className="w-[80%] ">
         <header className="py-10 text-center text-6xl"> Features</header>
-        <section className="mb-4 flex max-med:flex-col ">
-          <article className=" flex flex-1 items-center justify-center  md:w-1/2">
+        <section className="mb-4 flex max-med:flex-col   ">
+          <article className=" flex flex-1 items-center justify-center  md:w-1/2 ">
             <motion.div 
               initial ="hide"
               whileInView="show"
