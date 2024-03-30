@@ -1,7 +1,8 @@
 "use client";
+import YoutubeHandler from "@/pages/api/youtubeStream";
 import axios from "axios";
 import Image from "next/image";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useCallback, useState } from "react";
 import { FC } from "react";
 
 interface AlertModalProps {
@@ -77,51 +78,24 @@ export default function DownloadFunc() {
   };
 
   // submit function and get info of url
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  async function fetchYoutubeStream(videoUrl: string) {
+    const encodedUrl = encodeURIComponent(videoUrl);
     setIsLoading(true);
 
-    removeString();
-    try {
-      if (videoUrl === "") {
-        setModalMessage("YouTube Link Is Missing!");
-        setShowModal(true);
-        setIsLoading(false);
-        return;
-      }
-      await axios.post(
-        "https://youtube-saver.onrender.com/youtube-video-details",
-        {
-          url: videoUrl,
-        }
-      );
+    const response = await fetch(`/api/youtubeStream?url=${encodedUrl}`);
 
-      await testDownload();
-      setIsLoading(false);
-    } catch (error) {
-      if (error) {
-        setModalMessage("Invalid link");
-        setShowModal(true);
-        setIsLoading(false);
-      }
-    }
-  };
-  const testDownload = async () => {
-    const res = await axios.post(
-      "https://youtube-saver.onrender.com/test-download",
-      {
-        url: videoUrl,
-      }
-    );
+    const data = await response.json();
 
+    // console.log(data)
+    console.log(data.videoDetails.title);
+    console.log(data.videoDetails.thumbnail);
+    // Use the data as needed
     try {
-      setVideoInfo([res.data.videoDetails]);
+      setVideoInfo([data.videoDetails]);
       console.log("videoinfo", videoInfo);
 
-      setTestData(res.data.formats);
-      setNewTitle(res.data.videoDetails.title);
-      console.log(testData);
-      console.log("alldatas", res);
+      setTestData(data.formats);
+      setNewTitle(data.videoDetails.title);
 
       const testQLtoMatch = [
         "1440p60",
@@ -132,7 +106,7 @@ export default function DownloadFunc() {
         "360p",
         "240p",
       ];
-      const AudioData = res.data.formats.filter(
+      const AudioData = data.formats.filter(
         (data: Format) =>
           data.mimeType.includes("audio/mp4") &&
           data.audioQuality.includes("AUDIO_QUALITY_MEDIUM")
@@ -142,65 +116,84 @@ export default function DownloadFunc() {
 
       console.log("auidoos here", AudioData);
 
-      const allMatchData = res.data.formats.filter(
+      const allMatchData = data.formats.filter(
         (data: Format) =>
           testQLtoMatch.includes(data.qualityLabel) &&
           data.mimeType.includes("mp4a.40.2")
       );
       console.log("vide with audio", allMatchData);
       setGetTestData(allMatchData);
+      setIsLoading(false);
+    
     } catch (err) {
       console.log(err);
     }
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+
+    removeString();
+
+    try {
+      if (videoUrl === "") {
+        setModalMessage("YouTube Link Is Missing!");
+        setShowModal(true);
+        setIsLoading(false);
+        return;
+      }
+
+      fetchYoutubeStream(videoUrl);
+      // await axios.post(
+      //   "https://youtube-saver.onrender.com/youtube-video-details",
+      //   {
+      //     url: videoUrl,
+      //   }
+      // );
+
+
+    } catch (error) {
+      if (error) {
+        setModalMessage("Invalid link");
+        setShowModal(true);
+        setIsLoading(false);
+        console.log(error);
+      }
+    }
   };
 
-  //   const testDownloadMp3 = async () => {
-  //     try {
-  //       if (audioRef.current) {
-  //         audioRef.current.click();
-  //         console.log(audioRef, "Audio link cliccked");
-  //       }
-  //       console.log("u0rlaudi here", donwloadMp3);
-  //     } catch (err) {}
-  //   };
+  function downloadVideo(videoUrl: string, newTitle: string) {
+    // const link = document.createElement('a');
+    // link.href = videoUrl;
+    // link.download = newTitle;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+    window.open(videoUrl, "_blank");
+  }
 
-  const handleDropItemClick = (qualityLabel: string) => {
-    let getUrl = getTestData
-      .filter((data: Format) => data.qualityLabel === qualityLabel)
-      .map((data: Format) => data.url);
+  const handleDropItemClick = useCallback(
+    (qualityLabel: string) => {
+      let getUrl = getTestData
+        .filter((data) => data.qualityLabel === qualityLabel)
+        .map((data) => data.url);
 
-    console.log(`Clickurldata ${qualityLabel}`, clickGetUrl);
+      console.log(`Clickurldata ${qualityLabel}`, getUrl);
+      // setClickGetUrl((prevClick) => getUrl[0]);
+      // Assuming newTitle is defined somewhere in your component or is passed as a prop
+      downloadVideo(getUrl[0], newTitle);
 
-    setClickGetUrl((prevClick) => getUrl[0]);
-
-    console.log(`Clicked ${qualityLabel}`, getUrl);
-  };
-  //   useEffect(() => {
-  //     console.log("updatedCLick", clickGetUrl);
-
-  //     if (clickGetUrl) {
-  //       console.log("sameclick as geturl");
-  //       if (linkRef.current) {
-  //         linkRef.current.click();
-  //         console.log(linkRef, "link cliccked");
-  //       }
-  //     }
-  //   }, [clickGetUrl]);
+      console.log(`Clicked ${qualityLabel}`, getUrl);
+    },
+    [getTestData, newTitle]
+  );
 
   const clearSearch = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const res = await axios.get(
-      "https://youtube-saver.onrender.com/clear-url",
-      {
-        params: {
-          url: "",
-        },
-      }
-    );
 
-    console.log("cleardata", res.data);
     setClickGetUrl("");
     setGetTestData([]);
     setVideoInfo([]);
