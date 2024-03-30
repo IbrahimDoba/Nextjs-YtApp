@@ -15,8 +15,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Ssaver - Free Youtube Mp3 / Mp4 Downloader ",
-  description: "SSaver free online youtube video and Audio Downloader",
+  title: "Ssaver - Free Youtube Audio and Video Downloader ",
+  description: "SSaver free online youtube video and Audio Downloader Mp4 and Mp3",
   icons: {
     icon: "/icon.png",
   },
