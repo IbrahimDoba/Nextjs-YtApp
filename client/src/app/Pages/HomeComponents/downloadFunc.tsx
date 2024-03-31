@@ -180,13 +180,13 @@ export default function DownloadFunc() {
         .map((data) => data.url);
 
       console.log(`Clickurldata ${qualityLabel}`, getUrl);
-      // setClickGetUrl((prevClick) => getUrl[0]);
+      setClickGetUrl((prevClick) => getUrl[0]);
       // Assuming newTitle is defined somewhere in your component or is passed as a prop
-      downloadVideo(getUrl[0], newTitle);
+      // downloadVideo(getUrl[0], newTitle);
 
       console.log(`Clicked ${qualityLabel}`, getUrl);
     },
-    [getTestData, newTitle]
+    [getTestData]
   );
 
   const clearSearch = async (
